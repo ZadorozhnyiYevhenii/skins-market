@@ -2,9 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  modules: [
-    '@nuxt/fonts',
-  ],
+  modules: ["@nuxt/fonts", "nuxt-svgo", "@nuxt/image"],
   css: ["~/assets/base.scss"],
   vite: {
     css: {
@@ -14,5 +12,8 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+  svgo: {
+    autoImportPath: '~/assets/icons/',
   },
 });
