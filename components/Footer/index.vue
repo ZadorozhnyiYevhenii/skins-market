@@ -34,8 +34,9 @@ $policy-opacity: 60%;
 $separator-opacity: 10%;
 
 .footer {
-  background: $primary-background-color;
+  @include font-roboto;
 
+  background: $primary-background-color;
   padding: 32px;
 
   display: flex;

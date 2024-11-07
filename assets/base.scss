@@ -6,12 +6,12 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Mono', monospace;
 }
 
 body {
   background-color: $primary-background-color;
-
+  color: $text-primary-color;
 }
 
 main {
@@ -21,6 +21,11 @@ main {
 
 a {
   text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 button {
