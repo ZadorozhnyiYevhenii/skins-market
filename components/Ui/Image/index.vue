@@ -19,10 +19,10 @@ const component = computed(() => {
 
 <template>
   <Component :is="component" v-if="component">
-    <NuxtImg v-bind="{ ...attrs }" />
+    <NuxtImg draggable="false" v-bind="{ ...attrs }" />
   </Component>
 
-  <NuxtImg v-else v-bind="{ ...attrs }" />
+  <NuxtImg v-else draggable="false" v-bind="{ ...attrs }" />
 </template>
 
 <style scoped lang="scss"></style>

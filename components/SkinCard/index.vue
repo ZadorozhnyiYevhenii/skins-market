@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { Skin } from "~/types/interfaces/skin.interface";
 
-defineProps<{
+const { selectedSkins, skin } = defineProps<{
   skin: Skin;
+  selectedSkins: Skin[];
 }>();
+
+const isSelected = computed(() => selectedSkins.includes(skin));
 </script>
 
 <template>
-  <article class="skin-card">
+  <article class="skin-card" :class="{ active: isSelected }">
     <div class="skin-card__image-wrapper">
       <UiImage :src="skin.image" height="120" width="179" />
     </div>
@@ -42,7 +45,17 @@ $card-width: 218px;
 $container-gap: 6px;
 $card-border-radius: 4px;
 
+$card-hover-background-color: linear-gradient(
+  158.21deg,
+  #1d3570 5.62%,
+  #110320 93.67%
+);
+
 $image-wrapper-height: 152px;
+
+$card-active-color: $secondary-text-color;
+
+$price-color: $secondary-text-color;
 
 .skin-card {
   padding: $card-padding;
@@ -54,6 +67,15 @@ $image-wrapper-height: 152px;
 
   background: $thirdly-background-color;
   box-shadow: 0px 4px 8px 0px #00000033;
+
+  &:hover {
+    background: $card-hover-background-color;
+    cursor: pointer;
+  }
+
+  &.active {
+    outline: 1px solid $card-active-color;
+  }
 
   &__wrapper {
     display: flex;
@@ -112,7 +134,7 @@ $image-wrapper-height: 152px;
     font-weight: 500;
     font-size: 20px;
     line-height: 26px;
-    color: #6eefa9;
+    color: $price-color;
   }
 }
 </style>
