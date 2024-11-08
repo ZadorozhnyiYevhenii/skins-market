@@ -7,15 +7,13 @@ const { skins, selectedSkins } = defineProps<{
 }>();
 
 const emits = defineEmits<{
-  (e: "selectSkin", skin: Skin): void;
+  select: [skin: Skin];
 }>();
-
-
 </script>
 
 <template>
   <ul class="skins-list">
-    <li v-for="skin in skins" :key="skin.id" @click="emits('selectSkin', skin)">
+    <li v-for="skin in skins" :key="skin.id" @click="emits('select', skin)">
       <SkinCard :skin="skin" :selectedSkins="selectedSkins" />
     </li>
   </ul>

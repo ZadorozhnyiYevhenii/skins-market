@@ -24,7 +24,7 @@ const activeIcon = computed(
   height: 64px;
 
   background-color: $thirdly-background-color;
-  border-radius: 4px;
+  border-radius: $primary-border-radius;
 
   display: flex;
   align-items: center;

@@ -3,6 +3,12 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
   modules: ["@nuxt/fonts", "nuxt-svgo", "@nuxt/image"],
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+    },
+  ],
   css: ["~/assets/base.scss"],
   vite: {
     css: {

@@ -4,8 +4,9 @@ import type { SelectSize } from "./types/select-size.type";
 
 const { defaultLabel, options } = defineProps<{
   options: SelectInputOption[];
-  defaultLabel?: string;
   size: SelectSize;
+  defaultLabel?: string;
+  upperCase?: boolean;
 }>();
 
 const attrs = useAttrs();
@@ -56,7 +57,11 @@ onUnmounted(() => {
 
 <template>
   <div
-    :class="['custom-select', `custom-select--${size}`]"
+    :class="[
+      'custom-select',
+      `custom-select--${size}`,
+      { 'custom-select--upper-case': upperCase },
+    ]"
     :aria-expanded="isOpen"
     role="combobox"
   >
@@ -64,6 +69,8 @@ onUnmounted(() => {
       type="button"
       :class="[
         'custom-select__button',
+        `custom-select__button--${size}`,
+        { 'custom-select__button--upper-case': upperCase },
         { 'custom-select__button--active': isOpen },
       ]"
       @click="toggleDropdown"
@@ -98,7 +105,7 @@ onUnmounted(() => {
       v-if="isOpen"
       role="listbox"
       id="custom-select-list"
-      class="custom-select__options"
+      :class="['custom-select__options', `custom-select__options--${size}`]"
       aria-labelledby="custom-select-label"
     >
       <li
@@ -106,7 +113,7 @@ onUnmounted(() => {
         :key="option.value"
         role="option"
         tabindex="0"
-        @click="selectOption(option.value)"
+        @click.stop="selectOption(option.value)"
         @keydown.enter.prevent="selectOption(option.value)"
         :aria-selected="selectedOption === option.value"
         class="custom-select__option"
@@ -133,39 +140,65 @@ $spacing-button-padding: $spacing-large $spacing-medium $spacing-large;
 
 $font-size-button: 14px;
 
-$border-radius: 4px;
 $dropdown-max-height: 150px;
 $toggle-icon-size: 12px;
 
 .custom-select {
   position: relative;
 
+  &--sm {
+    background: none;
+  }
+
   &--md {
     width: 240px;
   }
 
-  &__button {
-    width: 100%;
+  &--upper-case {
+    text-transform: uppercase;
+  }
 
+  &__button {
     font-size: $font-size-button;
     text-align: left;
     color: $text-primary-color;
 
     border: 1px solid $color-border;
-    border-radius: $border-radius;
+    border-radius: $primary-border-radius;
 
     background: $primary-background-color;
     padding: $spacing-button-padding;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
 
     cursor: pointer;
 
+    &:focus {
+      outline: none;
+    }
+
     &--active {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+    }
+
+    &--upper-case {
+      text-transform: uppercase;
+    }
+
+    &--sm {
+      background: none;
+      border: none;
+
+      padding: 8px 10px 8px 8px;
+      width: fit-content;
+
+      gap: 4px;
+    }
+
+    &--md {
+      justify-content: space-between;
     }
   }
 
@@ -184,14 +217,24 @@ $toggle-icon-size: 12px;
     background: $primary-background-color;
     border: 1px solid $color-border;
     border-top: none;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $primary-border-radius;
+    border-bottom-right-radius: $primary-border-radius;
+
+    &--sm {
+      border-radius: $primary-border-radius;
+      border: 1px solid $color-border;
+    }
   }
 
   &__option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
     font-size: $font-size-button;
 
     padding: $spacing-small $spacing-medium;
+
     cursor: pointer;
 
     &:hover {

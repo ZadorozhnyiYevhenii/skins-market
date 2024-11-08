@@ -30,7 +30,7 @@ const alertIcon = computed(() => alertIconMap[type]);
 
   background: #ffffff1a;
   padding: 12px;
-  border-radius: 4px;
+  border-radius: $primary-border-radius;
 
   &__content {
     @include font-roboto;

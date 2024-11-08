@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { activeStepKey } from "./consts/provide-keys";
 
-defineEmits<{
-  (e: "done"): void;
-}>();
-
 const activeIndex = ref(1);
 
 const slots = useSlots().default;
@@ -40,7 +36,6 @@ watch(activeIndex, () => {
       <li
         v-for="(step, index) in steps"
         :key="index"
-        @click="activeIndex = index + 1"
         :class="['stepper__item', { active: index + 1 === activeIndex }]"
       >
         {{ step }}
@@ -53,9 +48,7 @@ watch(activeIndex, () => {
       </li>
     </ul>
 
-    <slot />
-
-    <slot name="actions" v-bind="{ prevStep, nextStep }" />
+    <slot :nextStep="nextStep" :prevStep="prevStep" />
   </section>
 </template>
 

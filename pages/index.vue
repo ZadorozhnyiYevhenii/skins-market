@@ -41,13 +41,13 @@ watch(sortModel, () => {
 
       <SkinsList
         :skins="skins?.data"
-        :selectedSkins="selectedSkins"
-        @selectSkin="handleSelectSkin"
+        :selectedSkins
+        @select="handleSelectSkin"
       />
     </section>
 
     <section>
-      <div class="div"></div>
+      <PaymentForm :selectedSkins />
     </section>
   </main>
 </template>
@@ -67,12 +67,5 @@ watch(sortModel, () => {
 
     gap: 16px;
   }
-}
-
-.div {
-  width: 300px;
-  height: 300px;
-
-  background: white;
 }
 </style>

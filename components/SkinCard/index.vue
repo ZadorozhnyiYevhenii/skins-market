@@ -43,7 +43,6 @@ $card-height: 276px;
 $card-width: 218px;
 
 $container-gap: 6px;
-$card-border-radius: 4px;
 
 $card-hover-background-color: linear-gradient(
   158.21deg,
@@ -60,7 +59,7 @@ $price-color: $secondary-text-color;
 .skin-card {
   padding: $card-padding;
   padding-top: 0;
-  border-radius: $card-border-radius;
+  border-radius: $primary-border-radius;
 
   width: $card-width;
   height: $card-height;
