@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { SelectInputOption } from "./types/options.interface";
 import type { SelectSize } from "./types/select-size.type";
+import ExpandIcon from "~/assets/icons/expand-icon.svg";
+import CollapseIcon from "~/assets/icons/collapse-icon.svg";
 
 const { defaultOption, options } = defineProps<{
   options: SelectInputOption[];
@@ -10,8 +12,6 @@ const { defaultOption, options } = defineProps<{
 }>();
 
 const attrs = useAttrs();
-
-const slots = useSlots();
 
 const isOpen = ref(false);
 
@@ -82,7 +82,7 @@ onUnmounted(() => {
       :aria-labelledby="'custom-select-label'"
       v-bind="{ ...attrs }"
     >
-      <span>
+      <span class="custom-select__content">
         <template v-if="modelValue">
           <slot name="prependIcon" />
         </template>
@@ -94,17 +94,9 @@ onUnmounted(() => {
         <slot name="appendIcon" />
       </span>
 
-      <SvgoExpandIcon
-        v-if="isOpen"
-        class="custom-select__toggle-icon"
-        alt="Expand icon"
-      />
+      <ExpandIcon v-if="isOpen" alt="Expand icon" />
 
-      <SvgoCollapseIcon
-        v-else
-        class="custom-select__toggle-icon"
-        alt="Collapse icon"
-      />
+      <CollapseIcon v-else alt="Collapse icon" />
     </button>
 
     <ul
@@ -115,8 +107,8 @@ onUnmounted(() => {
       aria-labelledby="custom-select-label"
     >
       <li
-        v-for="option in options"
-        :key="option.value"
+        v-for="(option, index) in options"
+        :key="index"
         role="option"
         tabindex="0"
         @click.stop="selectOption(option.value)"
@@ -147,7 +139,6 @@ $spacing-button-padding: $spacing-large $spacing-medium $spacing-large;
 $font-size-button: 14px;
 
 $dropdown-max-height: 150px;
-$toggle-icon-size: 12px;
 
 .custom-select {
   position: relative;
@@ -208,6 +199,12 @@ $toggle-icon-size: 12px;
     }
   }
 
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   &__options {
     position: absolute;
     top: 100%;
@@ -241,17 +238,14 @@ $toggle-icon-size: 12px;
 
     padding: $spacing-small $spacing-medium;
 
+    color: none;
+
     cursor: pointer;
 
     &:hover {
       background: $color-option-hover-background;
       color: $color-option-hover-text;
     }
-  }
-
-  &__toggle-icon {
-    width: $toggle-icon-size;
-    height: $toggle-icon-size;
   }
 }
 </style>

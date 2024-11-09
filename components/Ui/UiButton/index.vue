@@ -93,6 +93,11 @@ $secondary-color: $text-primary-color;
 
   transition: all 0.3s ease;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
   &--size-md {
     height: 38px;
   }

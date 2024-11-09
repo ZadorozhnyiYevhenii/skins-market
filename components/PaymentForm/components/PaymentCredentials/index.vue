@@ -4,6 +4,8 @@ import { validationByPaymentMethodMap } from "./consts/payment-method-validation
 import { getInvalidMessage } from "./helpers/getInvalidMessage";
 import { getPaymentLabel } from "./helpers/getPaymentLabel";
 import { getTotalsSummary } from "./helpers/getTotalsSummary";
+import ArrowNext from "~/assets/icons/arrow-next.svg";
+import ArrowPrev from "~/assets/icons/arrow-prev.svg";
 
 const { selectedPaymentMethod, totalSelectedSkinsCost } = defineProps<{
   selectedPaymentMethod: PaymentWithoutPath | null;
@@ -52,7 +54,7 @@ const isNextButtonDisabled = computed(() => !modelValue.value || !isCardNumberVa
     <div class="payment-credentials__step-buttons">
       <UiButton type="submit" size="lg" :isDisabled="isNextButtonDisabled">
         Next
-        <template #append-icon><SvgoArrowNext /></template>
+        <template #append-icon><ArrowNext /></template>
       </UiButton>
 
       <UiButton
@@ -62,7 +64,7 @@ const isNextButtonDisabled = computed(() => !modelValue.value || !isCardNumberVa
         @click="emits('prev')"
       >
         Back
-        <template #prepend-icon><SvgoArrowPrev /></template>
+        <template #prepend-icon><ArrowPrev /></template>
       </UiButton>
     </div>
   </form>

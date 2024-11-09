@@ -4,8 +4,9 @@ import { countryOptions } from "~/components/PaymentForm/consts/select-country-o
 import { CountriesEnum } from "~/components/PaymentForm/enums/countries";
 import type { PaymentWithoutPath } from "~/components/PaymentForm/types/payment-without-path.type";
 import type { Payment } from "~/components/PaymentForm/types/payment.interface";
-
-const props = defineProps<{
+import PortugalIcon from "~/assets/icons/pt.svg";
+import SpainIcon from "~/assets/icons/sp.svg";
+const { selectedPaymentMethod, selectedSkinsCount } = defineProps<{
   selectedSkinsCount: number;
   selectedPaymentMethod: PaymentWithoutPath | null;
 }>();
@@ -20,7 +21,15 @@ const modelValue = defineModel({
 });
 
 const isNextButtonDisabled = computed(
-  () => !props.selectedPaymentMethod || !props.selectedSkinsCount
+  () => !selectedPaymentMethod || !selectedSkinsCount
+);
+
+const defaultCountry = computed(() =>
+  countryOptions.find((option) => option.value === modelValue.value)
+);
+
+const activeIcon = computed(
+  () => countryOptions.find((option) => option.value === modelValue.value)?.icon
 );
 
 const onPaymentMethodChoose = (payment: Payment) => {
@@ -36,9 +45,14 @@ const onPaymentMethodChoose = (payment: Payment) => {
       <UiSelect
         v-model="modelValue"
         :options="countryOptions"
+        :defaultOption="defaultCountry"
         size="sm"
         upperCase
-      />
+      >
+        <template #prependIcon>
+          <Component :is="activeIcon" />
+        </template>
+      </UiSelect>
 
       <ul class="payment-method-picker__list">
         <li

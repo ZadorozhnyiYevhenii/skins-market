@@ -1,21 +1,23 @@
-import SvgoEs from "~/assets/icons/es.svg"
-import type { SelectInputOption } from "~/components/Ui/Select/types/options.interface";
+import UsaIcon from "~/assets/icons/usa.svg";
+import PortugalIcon from "~/assets/icons/pt.svg";
+import SpainIcon from "~/assets/icons/sp.svg";
 import { CountriesEnum } from "../enums/countries";
+import type { SelectInputOption } from "~/components/Ui/UiSelect/types/options.interface";
 
 export const countryOptions: SelectInputOption[] = [
   {
-    value: CountriesEnum.USA,
     label: "United States",
-    icon: SvgoEs
+    value: CountriesEnum.USA,
+    icon: UsaIcon,
   },
   {
-    value: CountriesEnum.PORTUGAL,
     label: "Portuguese",
-    icon: SvgoEs
+    value: CountriesEnum.PORTUGAL,
+    icon: PortugalIcon,
   },
   {
-    value: CountriesEnum.SPAIN,
     label: "Spain",
-    icon: SvgoEs
+    value: CountriesEnum.SPAIN,
+    icon: SpainIcon,
   },
 ];
