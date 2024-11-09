@@ -24,21 +24,14 @@ const isNextButtonDisabled = computed(
 );
 
 const onPaymentMethodChoose = (payment: Payment) => {
-  const { path, ...restData } = payment;
+  const { path, ...paymentData } = payment;
 
-  emits("choose", restData);
+  emits("choose", paymentData);
 };
-
-watch(
-  () => props.selectedSkinsCount,
-  () => {
-    console.log(Boolean(props.selectedSkinsCount));
-  }
-);
 </script>
 
 <template>
-  <div class="payment-method-picker">
+  <form @submit.prevent="emits('next')" class="payment-method-picker">
     <div class="payment-method-picker__container">
       <UiSelect
         v-model="modelValue"
@@ -71,14 +64,11 @@ watch(
       </ul>
     </div>
 
-    <UiButton
-      @click="emits('next')"
-      size="lg"
-      :isDisabled="isNextButtonDisabled"
+    <UiButton type="submit" size="lg" :isDisabled="isNextButtonDisabled"
       >Next
       <template #append-icon><SvgoArrowNext /></template>
     </UiButton>
-  </div>
+  </form>
 </template>
 
 <style scoped lang="scss">

@@ -2,14 +2,16 @@
 import type { SelectInputOption } from "./types/options.interface";
 import type { SelectSize } from "./types/select-size.type";
 
-const { defaultLabel, options } = defineProps<{
+const { defaultOption, options } = defineProps<{
   options: SelectInputOption[];
   size: SelectSize;
-  defaultLabel?: string;
+  defaultOption?: SelectInputOption;
   upperCase?: boolean;
 }>();
 
 const attrs = useAttrs();
+
+const slots = useSlots();
 
 const isOpen = ref(false);
 
@@ -20,7 +22,7 @@ const selectedLabel = computed(() => {
     (option) => option.value === selectedOption.value
   );
 
-  return option ? option.label : defaultLabel;
+  return option ? option.label : defaultOption?.label;
 });
 
 const toggleDropdown = () => {
@@ -81,11 +83,15 @@ onUnmounted(() => {
       v-bind="{ ...attrs }"
     >
       <span>
-        <slot name="prepend-icon" />
+        <template v-if="modelValue">
+          <slot name="prependIcon" />
+        </template>
+
+        <Component v-else :is="defaultOption?.icon" />
 
         {{ selectedLabel }}
 
-        <slot name="append-icon" />
+        <slot name="appendIcon" />
       </span>
 
       <SvgoExpandIcon

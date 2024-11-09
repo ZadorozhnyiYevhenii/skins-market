@@ -76,8 +76,6 @@ watch(activeIndex, () => {
     align-items: center;
     gap: 9px;
 
-    cursor: pointer;
-
     text-transform: uppercase;
 
     &.active {

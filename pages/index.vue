@@ -11,8 +11,7 @@ const { data: skins } = useFetch<ServerResponse<Skin[]>>("/api/skins");
 
 const selectedSkins = ref<Skin[]>([]);
 
-// What is the default sort model value?
-const sortModel = ref(SortDirection.DESC);
+const sortModel = ref<SortDirection | null>(null);
 
 const filterSkins = (skins: Ref<Skin[]>, skin: Skin) =>
   skins.value.filter((_skin) => _skin.id !== skin.id);
@@ -27,9 +26,9 @@ const handleSelectSkin = (skin: Skin) => {
 
 watch(sortModel, () => {
   if (sortModel.value === SortDirection.DESC && skins?.value?.data.length) {
-    skins.value.data = skins?.value.data?.toSorted((a, b) => a.price - b.price);
+    skins.value.data = sortSkinsList(skins.value.data, SortDirection.DESC);
   } else if (skins.value?.data.length) {
-    skins.value.data = skins?.value.data?.toSorted((a, b) => b.price - a.price);
+    skins.value.data = sortSkinsList(skins.value.data, SortDirection.ASC);
   }
 });
 </script>

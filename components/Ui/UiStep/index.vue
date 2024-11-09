@@ -21,5 +21,8 @@ const isActive = computed(() => activeStep?.value === title);
   background-color: $thirdly-background-color;
 
   padding: 12px;
+
+  border-bottom-left-radius: $primary-border-radius;
+  border-bottom-right-radius: $primary-border-radius;
 }
 </style>

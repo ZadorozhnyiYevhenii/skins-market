@@ -7,30 +7,50 @@ const { type } = defineProps<{
 }>();
 
 const alertIcon = computed(() => alertIconMap[type]);
+
+const alertClasses = computed(() => ["alert", `alert--${type}`]);
+
+const alertIconClasses = computed(() => [
+  "alert__icon",
+  `alert__icon--${type}`,
+]);
+
+const alertContentClasses = computed(() => [
+  "alert__content",
+  `alert__content--${type}`,
+]);
 </script>
 
 <template>
-  <article class="alert">
-    <component
-      :class="['alert__icon', `alert__icon--${type}`]"
-      :is="alertIcon"
-    />
+  <article :class="alertClasses">
+    <component v-if="alertIcon" :class="alertIconClasses" :is="alertIcon" />
 
-    <p :class="['alert__content', `alert__content--${type}`]">
+    <p :class="alertContentClasses">
       <slot />
     </p>
   </article>
 </template>
 
 <style scoped lang="scss">
+$warning-color: #ffb287;
+$warning-background-color: #ffffff1a;
+$error-background-color: #ff5a5a;
+
 .alert {
   display: flex;
   align-items: flex-start;
   gap: 8px;
 
-  background: #ffffff1a;
   padding: 12px;
   border-radius: $primary-border-radius;
+
+  &--warning {
+    background: $warning-background-color;
+  }
+
+  &--error {
+    background: $error-background-color;
+  }
 
   &__content {
     @include font-roboto;
@@ -38,7 +58,11 @@ const alertIcon = computed(() => alertIconMap[type]);
     line-height: 16.41px;
 
     &--warning {
-      color: #ffb287;
+      color: $warning-color;
+    }
+
+    &--error {
+      color: $text-primary-color;
     }
   }
 
@@ -47,7 +71,7 @@ const alertIcon = computed(() => alertIconMap[type]);
     height: 20px;
 
     &--warning {
-      color: #ffb287;
+      color: $warning-color;
     }
   }
 }

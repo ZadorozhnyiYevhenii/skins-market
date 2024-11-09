@@ -2,7 +2,10 @@
 import type { Skin } from "~/types/interfaces/skin.interface";
 import type { PaymentWithoutPath } from "./types/payment-without-path.type";
 import { CountriesEnum } from "./enums/countries";
-import { getTotalSkinsCostWithDollars } from "./helpers/normalize-price";
+import {
+  getPriceWithDollars,
+  getSkinsTotalCost,
+} from "./helpers/normalize-price";
 
 const { selectedSkins } = defineProps<{
   selectedSkins: Skin[];
@@ -12,8 +15,12 @@ const selectedCountry = ref(CountriesEnum.USA);
 
 const selectedPaymentMethod = ref<PaymentWithoutPath | null>(null);
 
-const totalSelectedSkinsCost = computed(() =>
-  getTotalSkinsCostWithDollars(selectedSkins)
+const paymentCode = ref("");
+
+const totalSelectedSkinsCost = computed(() => getSkinsTotalCost(selectedSkins));
+
+const totalSelectedSkinsCostWithDollar = computed(() =>
+  getPriceWithDollars(totalSelectedSkinsCost.value)
 );
 
 const selectedSkinsCount = computed(() => selectedSkins.length);
@@ -36,6 +43,11 @@ watch(selectedSkinsCount, () => {
 
 watch(selectedCountry, () => {
   selectedPaymentMethod.value = null;
+  paymentCode.value = "";
+});
+
+watch(selectedPaymentMethod, () => {
+  paymentCode.value = "";
 });
 </script>
 
@@ -48,7 +60,7 @@ watch(selectedCountry, () => {
         >
 
         <span class="payment-form__total-cost">{{
-          totalSelectedSkinsCost
+          totalSelectedSkinsCostWithDollar
         }}</span>
       </div>
 
@@ -56,30 +68,33 @@ watch(selectedCountry, () => {
     </div>
 
     <UiStepper v-slot="slotProps">
-        <UiStep title="Payment Method">
-          <PaymentMethodPicker
-            v-model="selectedCountry"
-            @choose="onPaymentMethodChoose"
-            @next="slotProps.nextStep"
-            :selectedSkinsCount
-            :selectedPaymentMethod
-          />
-        </UiStep>
+      <UiStep title="Payment Method">
+        <PaymentMethodPicker
+          v-model="selectedCountry"
+          @choose="onPaymentMethodChoose"
+          @next="slotProps.nextStep"
+          :selectedSkinsCount
+          :selectedPaymentMethod
+        />
+      </UiStep>
 
-        <UiStep title="Payment Details">
-          <PaymentCredentials
-            @next="slotProps.nextStep"
-            @prev="slotProps.prevStep"
-          />
-        </UiStep>
+      <UiStep title="Payment Details">
+        <PaymentCredentials
+          v-model="paymentCode"
+          @next="slotProps.nextStep"
+          @prev="slotProps.prevStep"
+          :selectedPaymentMethod
+          :totalSelectedSkinsCost="totalSelectedSkinsCost"
+        />
+      </UiStep>
 
-        <UiStep title="Confirmation on Steam">
-          <button>Confirm on Steam</button>
-        </UiStep>
+      <UiStep title="Confirmation on Steam">
+        <button>Confirm on Steam</button>
+      </UiStep>
 
-        <UiStep title="Payment transfer">
-          <button>dqdhuiqid</button>
-        </UiStep>
+      <UiStep title="Payment transfer">
+        <button>dqdhuiqid</button>
+      </UiStep>
     </UiStepper>
   </form>
 </template>

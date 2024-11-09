@@ -6,13 +6,20 @@ const sortModel = defineModel();
 const activeIcon = computed(
   () => sortOptions.find((option) => option.value === sortModel.value)?.icon
 );
+
+const defaultOption = computed(() => sortOptions.at(0));
 </script>
 
 <template>
   <div class="sort-bar">
-    <UiSelect v-model="sortModel" :options="sortOptions" size="md">
-      <template #prepend-icon>
-        <Component :is="activeIcon" /> 
+    <UiSelect
+      v-model="sortModel"
+      :defaultOption
+      :options="sortOptions"
+      size="md"
+    >
+      <template #prependIcon>
+        <Component :is="activeIcon" />
       </template>
     </UiSelect>
   </div>

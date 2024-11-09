@@ -1,11 +1,9 @@
 import type { Skin } from "~/types/interfaces/skin.interface";
 import { COST_FRACTION_DIGITS } from "../consts/cost-fraction-digits";
+import { CurrencyEnum } from "../enums/currency";
 
-const getTotalCost = (selectedSkins: Skin[]) =>
+export const getSkinsTotalCost = (selectedSkins: Skin[]) =>
   selectedSkins?.reduce((acc, skin) => acc + skin.price, 0);
 
-const getPriceWithDollars = (price: number) =>
-  `$${price.toFixed(COST_FRACTION_DIGITS)}`;
-
-export const getTotalSkinsCostWithDollars = (selectedSkins: Skin[]) =>
-  getPriceWithDollars(getTotalCost(selectedSkins));
+export const getPriceWithDollars = (price: number) =>
+  `${CurrencyEnum.USD}${price.toFixed(COST_FRACTION_DIGITS)}`;

@@ -65,7 +65,7 @@ const buttonProps = computed(() => {
     :is="component"
     v-if="component"
     :class="buttonClasses"
-    v-bind="{ type: 'button', ...buttonProps, ...attrs }"
+    v-bind="{ ...buttonProps, ...attrs }"
   >
     <slot name="prepend-icon" />
 
@@ -85,10 +85,17 @@ $secondary-color: $text-primary-color;
   border-radius: $primary-border-radius;
   box-shadow: 0px 4px 4px 0px #00000033;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
 
   text-transform: uppercase;
 
   transition: all 0.3s ease;
+
+  &--size-md {
+    height: 38px;
+  }
 
   &--size-lg {
     height: 64px;
