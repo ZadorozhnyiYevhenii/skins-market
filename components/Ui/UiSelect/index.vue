@@ -19,6 +19,8 @@ const isOpen = ref(false);
 
 const selectedOption = defineModel();
 
+let { abort, signal } = new AbortController();
+
 const selectedLabel = computed(() => {
   const option = options.find(
     (option) => option.value === selectedOption.value
@@ -70,13 +72,12 @@ const handleClickOutside = (event: Event) => {
 };
 
 onMounted(() => {
-  document.addEventListener("click", handleClickOutside);
-  document.addEventListener("keydown", handleKeydown);
+  document.addEventListener("click", handleClickOutside, { signal });
+  document.addEventListener("keydown", handleKeydown, { signal });
 });
 
 onUnmounted(() => {
-  document.removeEventListener("click", handleClickOutside);
-  document.removeEventListener("keydown", handleKeydown);
+  abort();
 });
 </script>
 
