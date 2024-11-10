@@ -4,7 +4,7 @@ import svgLoader from "vite-svg-loader";
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  modules: ["@nuxt/fonts", "@vueuse/nuxt", "@nuxt/image"],
+  modules: ["@nuxt/fonts", "@nuxt/image"],
   components: [
     {
       path: "~/components",
@@ -29,7 +29,4 @@ export default defineNuxtConfig({
   image: {
     dir: "assets/images",
   },
-  vueuse: {
-    ssrHandlers: true,
-  }
 });

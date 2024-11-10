@@ -17,7 +17,7 @@ $header-background: #234b9c;
   &__nav {
     padding: 15px 32px 15px;
     height: 64px;
-    background: $secondary-background-color;
+    background: $color-bg-secondary;
     backdrop-filter: blur(32px);
   }
 

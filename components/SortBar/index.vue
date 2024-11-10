@@ -24,7 +24,7 @@ const defaultOption = computed(() => sortOptions.at(0));
   width: 100%;
   height: 64px;
 
-  background-color: $thirdly-background-color;
+  background-color: $color-bg-tertiary;
   border-radius: $primary-border-radius;
 
   display: flex;

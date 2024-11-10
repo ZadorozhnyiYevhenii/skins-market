@@ -28,7 +28,7 @@ const modelValue = defineModel<boolean>();
   align-items: center;
 
   &--checked {
-    border-color: $secondary-text-color;
+    border-color: $color-text-secondary;
   }
 }
 </style>

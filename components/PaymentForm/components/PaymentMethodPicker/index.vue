@@ -109,7 +109,7 @@ $item-picked-border: 1px solid #2c64f1;
 
   &__item {
     cursor: pointer;
-    background: $background-tertiary-color;
+    background: $color-bg-tertiary;
     padding: 15px 20px;
     border: 1px solid #ffffff1a;
     border-radius: $primary-border-radius;

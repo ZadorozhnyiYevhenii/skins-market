@@ -180,12 +180,12 @@ $dropdown-max-height: 150px;
   &__button {
     font-size: $font-size-button;
     text-align: left;
-    color: $text-primary-color;
+    color: $color-text-primary;
 
     border: 1px solid $color-border;
     border-radius: $primary-border-radius;
 
-    background: $primary-background-color;
+    background: $color-bg-primary;
     padding: $spacing-button-padding;
 
     display: flex;
@@ -239,7 +239,7 @@ $dropdown-max-height: 150px;
     overflow-y: auto;
     z-index: 2;
 
-    background: $primary-background-color;
+    background: $color-bg-primary;
     border: 1px solid $color-border;
     border-top: none;
     border-bottom-left-radius: $primary-border-radius;

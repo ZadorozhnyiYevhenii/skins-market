@@ -82,8 +82,8 @@ $border-error-color: #ff5a5a;
     font-size: 16px;
     outline: none;
 
-    color: $text-primary-color;
-    background: $background-tertiary-color;
+    color: $color-text-primary;
+    background: $color-bg-tertiary;
 
     &--error {
       border-color: $border-error-color;

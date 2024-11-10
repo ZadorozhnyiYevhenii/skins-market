@@ -61,7 +61,7 @@ $error-background-color: #ff5a5a;
     }
 
     &--error {
-      color: $text-primary-color;
+      color: $color-text-primary;
     }
   }
 

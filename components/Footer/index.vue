@@ -36,7 +36,7 @@ $separator-opacity: 10%;
 .footer {
   @include font-roboto;
 
-  background: $primary-background-color;
+  background: $color-bg-primary;
   padding: 32px;
 
   display: flex;
@@ -46,7 +46,7 @@ $separator-opacity: 10%;
   &__separator {
     height: 1px;
     border: none;
-    background-color: $text-primary-color;
+    background-color: $color-text-primary;
     opacity: $separator-opacity;
   }
 
@@ -61,7 +61,7 @@ $separator-opacity: 10%;
   }
 
   &__policy {
-    color: $text-primary-color;
+    color: $color-text-primary;
     opacity: $policy-opacity;
 
     font-size: 12px;

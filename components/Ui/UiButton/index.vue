@@ -78,12 +78,12 @@ const buttonProps = computed(() => {
 <style scoped lang="scss">
 $primary-color: #2c64f1;
 $primary-color-hover: #2e58c3;
-$secondary-color: $text-primary-color;
+$secondary-color: $color-text-primary;
 
 .button {
-  color: $text-primary-color;
+  color: $color-text-primary;
   border-radius: $primary-border-radius;
-  box-shadow: 0px 4px 4px 0px $background-tertiary-color;
+  box-shadow: 0px 4px 4px 0px $color-bg-tertiary;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;

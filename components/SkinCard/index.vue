@@ -54,9 +54,9 @@ $card-hover-background-color: linear-gradient(
 
 $image-wrapper-height: 152px;
 
-$card-active-color: $secondary-text-color;
+$card-active-color: $color-text-secondary;
 
-$price-color: $secondary-text-color;
+$price-color: $color-text-secondary;
 
 $background-image: "/assets/images/skin-background.png";
 
@@ -68,8 +68,8 @@ $background-image: "/assets/images/skin-background.png";
   width: $card-width;
   height: $card-height;
 
-  background: $thirdly-background-color;
-  box-shadow: 0px 4px 8px 0px $background-tertiary-color;
+  background: $color-bg-tertiary;
+  box-shadow: 0px 4px 8px 0px $color-bg-tertiary;
 
   position: relative;
 

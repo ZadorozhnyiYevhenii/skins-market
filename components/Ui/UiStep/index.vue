@@ -18,7 +18,7 @@ const isActive = computed(() => activeStep?.value === title);
 
 <style scoped lang="scss">
 .step-content {
-  background-color: $thirdly-background-color;
+  background-color: $color-bg-tertiary;
 
   padding: 12px;
 
