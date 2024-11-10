@@ -4,8 +4,7 @@ import { countryOptions } from "~/components/PaymentForm/consts/select-country-o
 import { CountriesEnum } from "~/components/PaymentForm/enums/countries";
 import type { PaymentWithoutPath } from "~/components/PaymentForm/types/payment-without-path.type";
 import type { Payment } from "~/components/PaymentForm/types/payment.interface";
-import PortugalIcon from "~/assets/icons/pt.svg";
-import SpainIcon from "~/assets/icons/sp.svg";
+
 const { selectedPaymentMethod, selectedSkinsCount } = defineProps<{
   selectedSkinsCount: number;
   selectedPaymentMethod: PaymentWithoutPath | null;

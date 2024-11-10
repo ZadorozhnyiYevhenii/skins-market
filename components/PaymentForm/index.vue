@@ -11,11 +11,17 @@ const { selectedSkins } = defineProps<{
   selectedSkins: Skin[];
 }>();
 
+const emits = defineEmits<{
+  transferCompleted: [];
+}>();
+
 const selectedCountry = ref(CountriesEnum.USA);
 
 const selectedPaymentMethod = ref<PaymentWithoutPath | null>(null);
 
 const paymentCode = ref("");
+
+const paymentTransferStatus = ref("");
 
 const totalSelectedSkinsCost = computed(() => getSkinsTotalCost(selectedSkins));
 
@@ -35,6 +41,15 @@ const onPaymentMethodChoose = (payment: PaymentWithoutPath) => {
   }
 };
 
+const onTransferComplete = (setInitialStep: () => void) => {
+  selectedCountry.value = CountriesEnum.USA;
+  selectedPaymentMethod.value = null;
+  paymentCode.value = "";
+  paymentTransferStatus.value = "";
+  emits("transferCompleted");
+  setInitialStep();
+};
+
 watch(selectedSkinsCount, () => {
   if (!selectedSkinsCount.value) {
     selectedPaymentMethod.value = null;
@@ -52,7 +67,7 @@ watch(selectedPaymentMethod, () => {
 </script>
 
 <template>
-  <form class="payment-form">
+  <section class="payment-form">
     <div class="payment-form__head-wrapper">
       <div class="payment-form__totals-container">
         <span class="payment-form__count"
@@ -88,15 +103,18 @@ watch(selectedPaymentMethod, () => {
         />
       </UiStep>
 
-      <UiStep title="Confirmation on Steam">
-        <button>Confirm on Steam</button>
+      <UiStep title="Confirmation on Steam" v-slot="{ isActive }">
+        <TradeAcceptment :isActive @next="slotProps.nextStep" />
       </UiStep>
 
       <UiStep title="Payment transfer">
-        <button>dqdhuiqid</button>
+        <PaymentTransfer
+          @complete="onTransferComplete(slotProps.setInitialStep)"
+          status="success"
+        />
       </UiStep>
     </UiStepper>
-  </form>
+  </section>
 </template>
 
 <style scoped lang="scss">

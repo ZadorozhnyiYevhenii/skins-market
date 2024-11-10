@@ -12,7 +12,7 @@ const isActive = computed(() => activeStep?.value === title);
 
 <template>
   <article class="step-content" v-show="isActive">
-    <slot />
+    <slot :isActive="isActive" />
   </article>
 </template>
 

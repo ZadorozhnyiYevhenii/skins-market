@@ -24,6 +24,10 @@ const handleSelectSkin = (skin: Skin) => {
   }
 };
 
+const onTransferCompleted = () => {
+  selectedSkins.value = [];
+}
+
 watch(sortModel, () => {
   if (sortModel.value === SortDirection.DESC && skins?.value?.data.length) {
     skins.value.data = sortSkinsList(skins.value.data, SortDirection.DESC);
@@ -46,7 +50,7 @@ watch(sortModel, () => {
     </section>
 
     <section>
-      <PaymentForm :selectedSkins />
+      <PaymentForm :selectedSkins @transferCompleted="onTransferCompleted" />
     </section>
   </main>
 </template>

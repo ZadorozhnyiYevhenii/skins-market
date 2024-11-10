@@ -60,7 +60,7 @@ const isNextButtonDisabled = computed(() => !modelValue.value || !isCardNumberVa
       <UiButton
         type="button"
         color="transparent"
-        size="md"
+        size="sm"
         @click="emits('prev')"
       >
         Back

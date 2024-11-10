@@ -98,8 +98,18 @@ $secondary-color: $text-primary-color;
   justify-content: center;
   gap: 4px;
 
-  &--size-md {
+  &--size-sm {
     height: 38px;
+  }
+
+  &--size-md {
+    height: 48px;
+
+    gap: 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
   }
 
   &--size-lg {
@@ -127,6 +137,7 @@ $secondary-color: $text-primary-color;
 
   &--color-secondary {
     background: $secondary-color;
+    color: $primary-color;
   }
 
   &--is-disabled {

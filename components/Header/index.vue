@@ -1,14 +1,53 @@
 <template>
   <header class="header">
-    <CompanyLogo />
+    <nav class="header__nav">
+      <CompanyLogo />
+    </nav>
+
+    <div class="header__container">
+      <h1 class="header__title">Sell CS:GO skins</h1>
+      <div class="header__background" />
+    </div>
   </header>
 </template>
 
 <style scoped lang="scss">
 .header {
-  height: 64px;
-  background: $secondary-background-color;
-  backdrop-filter: blur(32px);
-  padding: 15px 32px 15px;
+  &__nav {
+    padding: 15px 32px 15px;
+    height: 64px;
+    background: $secondary-background-color;
+    backdrop-filter: blur(32px);
+  }
+
+  &__container {
+    position: relative;
+
+    background: #234b9c;
+    height: 92px;
+  }
+
+  &__background {
+    @include default-background-image("/assets/images/header_background.png");
+
+    position: absolute;
+
+    height: 100%;
+    max-width: 290px;
+    width: 100%;
+
+    right: 0;
+    top: 0;
+  }
+
+  &__title {
+    @include font-roboto;
+
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 24px;
+
+    padding: 40px 32px 28px;
+  }
 }
 </style>

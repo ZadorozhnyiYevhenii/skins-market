@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ArrowNext from "~/assets/icons/arrow-next.svg";
 import { activeStepKey } from "./consts/provide-keys";
 
 const activeIndex = ref(1);
@@ -25,6 +26,10 @@ const prevStep = () => {
   }
 };
 
+const setInitialStep = () => {
+  activeIndex.value = 1;
+};
+
 watch(activeIndex, () => {
   activeStep.value = steps[activeIndex.value - 1];
 });
@@ -40,15 +45,14 @@ watch(activeIndex, () => {
       >
         {{ step }}
 
-        <SvgoArrowNext
+        <ArrowNext
           v-if="isLastStep(index)"
-          class="stepper__arrow-next"
           alt="Next step"
         />
       </li>
     </ul>
 
-    <slot :nextStep="nextStep" :prevStep="prevStep" />
+    <slot :nextStep="nextStep" :prevStep="prevStep" :setInitialStep="setInitialStep" />
   </section>
 </template>
 

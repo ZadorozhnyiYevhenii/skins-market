@@ -56,6 +56,8 @@ $card-active-color: $secondary-text-color;
 
 $price-color: $secondary-text-color;
 
+$background-image: "/assets/images/skin-background.png";
+
 .skin-card {
   padding: $card-padding;
   padding-top: 0;
@@ -85,14 +87,11 @@ $price-color: $secondary-text-color;
   }
 
   &__image-wrapper {
+    @include default-background-image($background-image);
+
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background-image: url("/assets/images/skin-background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 
     width: 100%;
     height: $image-wrapper-height;
