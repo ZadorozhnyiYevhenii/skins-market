@@ -85,6 +85,11 @@ watch(sortModel, () => {
 
   padding: 16px 32px 32px;
 
+  @include tablet {
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__section {
     display: flex;
     flex-direction: column;

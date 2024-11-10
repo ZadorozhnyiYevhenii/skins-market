@@ -53,6 +53,11 @@ $separator-opacity: 10%;
   &__container {
     display: flex;
     justify-content: space-between;
+
+    @include tablet {
+      flex-direction: column;
+      gap: 16px;
+    }
   }
 
   &__policy {
