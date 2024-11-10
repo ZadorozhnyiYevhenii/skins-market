@@ -14,6 +14,7 @@ const { selectedSkins } = defineProps<{
 
 const emits = defineEmits<{
   transferCompleted: [];
+  paymentMethodPicked: [];
 }>();
 
 const selectedCountry = ref(CountriesEnum.USA);
@@ -40,6 +41,11 @@ const onPaymentMethodChoose = (payment: PaymentWithoutPath) => {
       selectedPaymentMethod.value = payment;
     }
   }
+};
+
+const onPaymentMethodPicked = (nextStep: () => void) => {
+  nextStep();
+  emits("paymentMethodPicked");
 };
 
 const onTradeAccept = (result: PaymentTransferStatus, nextStep: () => void) => {
@@ -93,7 +99,7 @@ watch(selectedPaymentMethod, () => {
         <PaymentMethodPicker
           v-model="selectedCountry"
           @choose="onPaymentMethodChoose"
-          @next="slotProps.nextStep"
+          @next="onPaymentMethodPicked(slotProps.nextStep)"
           :selectedSkinsCount
           :selectedPaymentMethod
         />

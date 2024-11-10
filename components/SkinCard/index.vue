@@ -11,6 +11,8 @@ const isSelected = computed(() => selectedSkins.includes(skin));
 
 <template>
   <article class="skin-card" :class="{ active: isSelected }">
+    <div class="skin-card__checkbox"><UiCheckbox v-model="isSelected" /></div>
+
     <div class="skin-card__image-wrapper">
       <UiImage :src="skin.image" height="120" width="179" />
     </div>
@@ -69,6 +71,8 @@ $background-image: "/assets/images/skin-background.png";
   background: $thirdly-background-color;
   box-shadow: 0px 4px 8px 0px #00000033;
 
+  position: relative;
+
   &:hover {
     background: $card-hover-background-color;
     cursor: pointer;
@@ -95,6 +99,12 @@ $background-image: "/assets/images/skin-background.png";
 
     width: 100%;
     height: $image-wrapper-height;
+  }
+  
+  &__checkbox {
+    position: absolute;
+    top: 8px;
+    right: 8.5px;
   }
 
   &__name {

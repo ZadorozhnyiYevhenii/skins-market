@@ -13,20 +13,29 @@ const selectedSkins = ref<Skin[]>([]);
 
 const sortModel = ref<SortDirection | null>(null);
 
+const isPaymentMethodPicked = ref(false);
+
 const filterSkins = (skins: Ref<Skin[]>, skin: Skin) =>
   skins.value.filter((_skin) => _skin.id !== skin.id);
 
 const handleSelectSkin = (skin: Skin) => {
-  if (selectedSkins.value.includes(skin)) {
-    selectedSkins.value = filterSkins(selectedSkins, skin);
-  } else {
-    selectedSkins.value = [...selectedSkins.value, skin];
+  if (!isPaymentMethodPicked.value) {
+    if (selectedSkins.value.includes(skin)) {
+      selectedSkins.value = filterSkins(selectedSkins, skin);
+    } else {
+      selectedSkins.value = [...selectedSkins.value, skin];
+    }
   }
 };
 
 const onTransferCompleted = () => {
   selectedSkins.value = [];
-}
+  isPaymentMethodPicked.value = false;
+};
+
+const onPaymentMethodPicked = () => {
+  isPaymentMethodPicked.value = true;
+};
 
 watch(sortModel, () => {
   if (sortModel.value === SortDirection.DESC && skins?.value?.data.length) {
@@ -39,9 +48,13 @@ watch(sortModel, () => {
 
 <template>
   <main class="page">
-    <section class="page__section">
+    <section
+      :class="[
+        'page__section',
+        { 'page__section--blur': isPaymentMethodPicked },
+      ]"
+    >
       <SortBar v-model="sortModel" />
-
       <SkinsList
         :skins="skins?.data"
         :selectedSkins
@@ -50,7 +63,11 @@ watch(sortModel, () => {
     </section>
 
     <section>
-      <PaymentForm :selectedSkins @transferCompleted="onTransferCompleted" />
+      <PaymentForm
+        :selectedSkins
+        @transferCompleted="onTransferCompleted"
+        @paymentMethodPicked="onPaymentMethodPicked"
+      />
     </section>
   </main>
 </template>
@@ -69,6 +86,13 @@ watch(sortModel, () => {
     align-items: center;
 
     gap: 16px;
+
+    transition: opacity .2s;
+
+    &--blur {
+      opacity: 0.4;
+      pointer-events: none;
+    }
   }
 }
 </style>
