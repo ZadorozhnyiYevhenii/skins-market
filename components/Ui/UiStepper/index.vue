@@ -43,10 +43,11 @@ watch(activeIndex, () => {
         :key="index"
         :class="['stepper__item', { active: index + 1 === activeIndex }]"
       >
-        {{ step }}
+        <span>{{ step }}</span>
 
         <ArrowNext
           v-if="isLastStep(index)"
+          class="stepper__arrow"
           alt="Next step"
         />
       </li>
@@ -69,6 +70,11 @@ watch(activeIndex, () => {
     padding-bottom: 20px;
   }
 
+  &__arrow {
+    width: 26px;
+    height: 16px;
+  }
+
   &__item {
     font-size: 12px;
     font-weight: 400;
@@ -85,11 +91,6 @@ watch(activeIndex, () => {
     &.active {
       color: #ffb287;
     }
-  }
-
-  &__arrow-next {
-    width: 16px;
-    height: 16px;
   }
 }
 </style>

@@ -3,17 +3,27 @@ import { tradeInfoDetails } from "./consts/trade-info-details";
 import ArrowPrev from "~/assets/icons/arrow-prev.svg";
 import LinkIcon from "~/assets/icons/link-icon.svg";
 import { TRADE_TIMEOUT_TIME } from "./consts/timeout-time";
+import type { PaymentTransferStatus } from "../PaymentTransfer/types/payment-transfer-status.type";
+import { generateRandomResult } from "./helpers/generateRandomResult";
 
 defineProps<{
   isActive: boolean;
 }>();
 
 const emits = defineEmits<{
-  next: [];
+  next: [result: PaymentTransferStatus];
   prev: [];
 }>();
 
 const isTimerEnd = ref(false);
+
+const onNext = () => {
+  isTimerEnd.value = false;
+
+  const result = generateRandomResult();
+
+  emits("next", result);
+};
 
 const onTimerEnd = () => {
   isTimerEnd.value = true;
@@ -53,16 +63,16 @@ const onTimerEnd = () => {
 
     <div class="trade-accept__confirm-wrapper">
       <span class="trade-accept__confirm-label">Accept trade:</span>
-      <UiButton size="md" color="secondary" @click="emits('next')"
+      <UiButton
+        size="md"
+        color="secondary"
+        @click="onNext"
+        :isDisabled="isTimerEnd"
         >Accept Trade <template #append-icon> <LinkIcon /> </template
       ></UiButton>
     </div>
 
-    <UiButton
-      color="transparent"
-      size="sm"
-      @click="emits('prev')"
-      :isDisabled="isTimerEnd"
+    <UiButton color="transparent" size="sm" @click="emits('prev')"
       >Back
       <template #prepend-icon><ArrowPrev /></template>
     </UiButton>

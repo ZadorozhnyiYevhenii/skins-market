@@ -6,6 +6,7 @@ import {
   getPriceWithDollars,
   getSkinsTotalCost,
 } from "./helpers/normalize-price";
+import type { PaymentTransferStatus } from "./components/PaymentTransfer/types/payment-transfer-status.type";
 
 const { selectedSkins } = defineProps<{
   selectedSkins: Skin[];
@@ -21,7 +22,7 @@ const selectedPaymentMethod = ref<PaymentWithoutPath | null>(null);
 
 const paymentCode = ref("");
 
-const paymentTransferStatus = ref("");
+const paymentTransferStatus = ref<PaymentTransferStatus | null>(null);
 
 const totalSelectedSkinsCost = computed(() => getSkinsTotalCost(selectedSkins));
 
@@ -41,11 +42,16 @@ const onPaymentMethodChoose = (payment: PaymentWithoutPath) => {
   }
 };
 
+const onTradeAccept = (result: PaymentTransferStatus, nextStep: () => void) => {
+  paymentTransferStatus.value = result;
+  nextStep();
+};
+
 const onTransferComplete = (setInitialStep: () => void) => {
   selectedCountry.value = CountriesEnum.USA;
   selectedPaymentMethod.value = null;
   paymentCode.value = "";
-  paymentTransferStatus.value = "";
+  paymentTransferStatus.value = null;
   emits("transferCompleted");
   setInitialStep();
 };
@@ -104,13 +110,17 @@ watch(selectedPaymentMethod, () => {
       </UiStep>
 
       <UiStep title="Confirmation on Steam" v-slot="{ isActive }">
-        <TradeAcceptment :isActive @next="slotProps.nextStep" />
+        <TradeAcceptment
+          :isActive
+          @next="(result) => onTradeAccept(result, slotProps.nextStep)"
+          @prev="slotProps.prevStep"
+        />
       </UiStep>
 
       <UiStep title="Payment transfer">
         <PaymentTransfer
           @complete="onTransferComplete(slotProps.setInitialStep)"
-          status="success"
+          :status="paymentTransferStatus"
         />
       </UiStep>
     </UiStepper>

@@ -4,6 +4,7 @@ import { countryOptions } from "~/components/PaymentForm/consts/select-country-o
 import { CountriesEnum } from "~/components/PaymentForm/enums/countries";
 import type { PaymentWithoutPath } from "~/components/PaymentForm/types/payment-without-path.type";
 import type { Payment } from "~/components/PaymentForm/types/payment.interface";
+import ArrowNext from "~/assets/icons/arrow-next.svg";
 
 const { selectedPaymentMethod, selectedSkinsCount } = defineProps<{
   selectedSkinsCount: number;
@@ -79,7 +80,7 @@ const onPaymentMethodChoose = (payment: Payment) => {
 
     <UiButton type="submit" size="lg" :isDisabled="isNextButtonDisabled"
       >Next
-      <template #append-icon><SvgoArrowNext /></template>
+      <template #append-icon><ArrowNext /></template>
     </UiButton>
   </form>
 </template>

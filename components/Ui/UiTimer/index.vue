@@ -41,7 +41,11 @@ const startTimer = () => {
 const stopTimer = () => {
   if (timerInterval !== null) {
     clearInterval(timerInterval);
-    emits("timerEnd");
+
+    if (timeLeft.value === 0) {
+      emits("timerEnd");
+    }
+
     isLeft.value = false;
     timerInterval = null;
   }
