@@ -37,10 +37,14 @@ const onPaymentMethodChoose = (payment: Payment) => {
 
   emits("choose", paymentData);
 };
+
+const onPaymentMethodNext = () => {
+  emits("next");
+};
 </script>
 
 <template>
-  <form @submit.prevent="emits('next')" class="payment-method-picker">
+  <form @submit.prevent="onPaymentMethodNext" class="payment-method-picker">
     <div class="payment-method-picker__container">
       <UiSelect
         v-model="modelValue"

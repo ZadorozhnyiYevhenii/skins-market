@@ -54,8 +54,7 @@ $error-background-color: #ff5a5a;
 
   &__content {
     @include font-roboto;
-    font-size: 14px;
-    line-height: 16.41px;
+    @include text-regular;
 
     &--warning {
       color: $warning-color;

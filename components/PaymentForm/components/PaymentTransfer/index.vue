@@ -85,10 +85,7 @@ const isSuccess = computed(() => status === "success");
 
   &__status-message {
     @include font-roboto;
-
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16.41px;
+    @include text-regular;
     text-align: center;
 
     opacity: 80%;

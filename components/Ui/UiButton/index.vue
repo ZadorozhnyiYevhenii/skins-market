@@ -103,13 +103,12 @@ $secondary-color: $text-primary-color;
   }
 
   &--size-md {
+    @include text-regular;
+    font-weight: 500;
+
     height: 48px;
 
     gap: 8px;
-
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16px;
   }
 
   &--size-lg {

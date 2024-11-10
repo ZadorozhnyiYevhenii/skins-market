@@ -1,6 +1,7 @@
 import { PaymentMethodEnum } from "~/components/PaymentForm/enums/payment-method";
 
-const CARD_NUMBER_REGEXP = /^(?:\d{4}[-\s]?){3}\d{4}$|^\d{13,19}$/;
+const CARD_NUMBER_REGEXP =
+  /^(?!0{4}[-\s]?0{4}[-\s]?0{4}[-\s]?0{4}$)(?:\d{4}[-\s]?){3}\d{4}$|^(?!0{13,19}$)\d{13,19}$/;
 const EMAIL_REGEXP =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const BITCOIN_REGEXP =

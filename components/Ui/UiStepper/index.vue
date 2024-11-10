@@ -53,12 +53,18 @@ watch(activeIndex, () => {
       </li>
     </ul>
 
-    <slot :nextStep="nextStep" :prevStep="prevStep" :setInitialStep="setInitialStep" />
+    <slot
+      :nextStep="nextStep"
+      :prevStep="prevStep"
+      :setInitialStep="setInitialStep"
+    />
   </section>
 </template>
 
 <style scoped lang="scss">
 .stepper {
+  width: 100%;
+
   &__list {
     display: flex;
     align-items: center;
@@ -70,14 +76,12 @@ watch(activeIndex, () => {
   }
 
   &__arrow {
-    width: 26px;
-    height: 16px;
+    flex-shrink: 0;
   }
 
   &__item {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 12px;
+    @include text-small;
+    letter-spacing: 0.03em;
 
     opacity: 60%;
 
@@ -85,7 +89,6 @@ watch(activeIndex, () => {
     align-items: center;
     gap: 9px;
 
-    width: auto;
 
     text-transform: uppercase;
 

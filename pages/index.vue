@@ -2,6 +2,7 @@
 import { SortDirection } from "~/components/SortBar/enums/sort-direction.enum";
 import type { Skin } from "~/types/interfaces/skin.interface";
 import type { ServerResponse } from "~/types/types/server-response.type";
+import { useStorage } from "@vueuse/core";
 
 definePageMeta({
   layout: "default",
@@ -9,7 +10,7 @@ definePageMeta({
 
 const { data: skins } = useFetch<ServerResponse<Skin[]>>("/api/skins");
 
-const selectedSkins = ref<Skin[]>([]);
+const selectedSkins = useStorage<Skin[]>("selectedSkins", []);
 
 const sortModel = ref<SortDirection | null>(null);
 
@@ -20,7 +21,7 @@ const filterSkins = (skins: Ref<Skin[]>, skin: Skin) =>
 
 const handleSelectSkin = (skin: Skin) => {
   if (!isPaymentMethodPicked.value) {
-    if (selectedSkins.value.includes(skin)) {
+    if (selectedSkins.value.some((selectedSkin) => selectedSkin.id === skin.id)) {
       selectedSkins.value = filterSkins(selectedSkins, skin);
     } else {
       selectedSkins.value = [...selectedSkins.value, skin];
@@ -35,6 +36,10 @@ const onTransferCompleted = () => {
 
 const onPaymentMethodPicked = () => {
   isPaymentMethodPicked.value = true;
+};
+
+const onStepBackToPaymentMethod = () => {
+  isPaymentMethodPicked.value = false;
 };
 
 watch(sortModel, () => {
@@ -67,6 +72,7 @@ watch(sortModel, () => {
         :selectedSkins
         @transferCompleted="onTransferCompleted"
         @paymentMethodPicked="onPaymentMethodPicked"
+        @stepBackToPaymentMethod="onStepBackToPaymentMethod"
       />
     </section>
   </main>
@@ -87,7 +93,7 @@ watch(sortModel, () => {
 
     gap: 16px;
 
-    transition: opacity .2s;
+    transition: opacity 0.2s;
 
     &--blur {
       opacity: 0.4;

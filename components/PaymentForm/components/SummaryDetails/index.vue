@@ -38,12 +38,12 @@ defineProps<{
   }
 
   &__item {
+    @include text-small;
+
     display: flex;
     gap: 8px;
 
     text-transform: uppercase;
-    font-size: 12px;
-    line-height: 12px;
     white-space: nowrap;
   }
 

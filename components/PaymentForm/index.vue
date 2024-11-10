@@ -15,6 +15,7 @@ const { selectedSkins } = defineProps<{
 const emits = defineEmits<{
   transferCompleted: [];
   paymentMethodPicked: [];
+  stepBackToPaymentMethod: [];
 }>();
 
 const selectedCountry = ref(CountriesEnum.USA);
@@ -46,6 +47,11 @@ const onPaymentMethodChoose = (payment: PaymentWithoutPath) => {
 const onPaymentMethodPicked = (nextStep: () => void) => {
   nextStep();
   emits("paymentMethodPicked");
+};
+
+const onStepBackToPaymentMethod = (prevStep: () => void) => {
+  prevStep();
+  emits("stepBackToPaymentMethod");
 };
 
 const onTradeAccept = (result: PaymentTransferStatus, nextStep: () => void) => {
@@ -109,7 +115,7 @@ watch(selectedPaymentMethod, () => {
         <PaymentCredentials
           v-model="paymentCode"
           @next="slotProps.nextStep"
-          @prev="slotProps.prevStep"
+          @prev="onStepBackToPaymentMethod(slotProps.prevStep)"
           :selectedPaymentMethod
           :totalSelectedSkinsCost="totalSelectedSkinsCost"
         />
@@ -134,12 +140,18 @@ watch(selectedPaymentMethod, () => {
 </template>
 
 <style scoped lang="scss">
+$payment-form-header-background: linear-gradient(
+  163.45deg,
+  #223056 4.48%,
+  #0e1526 93.42%
+);
+
 .payment-form {
   border-radius: $primary-border-radius;
 
   width: 400px;
 
-  background: linear-gradient(163.45deg, #223056 4.48%, #0e1526 93.42%);
+  background: $payment-form-header-background;
 
   &__choose-payment-step-container {
     display: flex;
@@ -192,9 +204,7 @@ watch(selectedPaymentMethod, () => {
   }
 
   &__count {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
+    @include text-regular;
     text-align: left;
 
     opacity: 80%;

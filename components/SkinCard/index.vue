@@ -6,7 +6,7 @@ const { selectedSkins, skin } = defineProps<{
   selectedSkins: Skin[];
 }>();
 
-const isSelected = computed(() => selectedSkins.includes(skin));
+const isSelected = computed(() => selectedSkins.some((selectedSkin) => selectedSkin.id === skin.id));
 </script>
 
 <template>
@@ -100,7 +100,7 @@ $background-image: "/assets/images/skin-background.png";
     width: 100%;
     height: $image-wrapper-height;
   }
-  
+
   &__checkbox {
     position: absolute;
     top: 8px;
@@ -108,8 +108,7 @@ $background-image: "/assets/images/skin-background.png";
   }
 
   &__name {
-    line-height: 16px;
-    font-size: 14px;
+    @include text-regular;
 
     min-height: 32px;
 
@@ -118,15 +117,13 @@ $background-image: "/assets/images/skin-background.png";
   }
 
   &__exterior-title {
-    font-size: 12px;
-    line-height: 12px;
+    @include text-small;
 
     text-transform: uppercase;
   }
 
   &__payment-label {
-    font-size: 12px;
-    line-height: 12px;
+    @include text-small;
     opacity: 80%;
 
     text-transform: uppercase;

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import type { Mask } from "../UiSelect/types/mask.type";
+import { getMaskNormalizer } from "./helpers/getMaskNormlizer";
 
-const { isValid } = defineProps<{
+const { isValid, mask } = defineProps<{
   label?: string;
   isValid?: boolean;
+  mask?: Mask;
 }>();
 
 const attrs = useAttrs();
@@ -17,6 +20,14 @@ const isInputDirty = ref(false);
 const showError = computed(() => !isValid && !!modelValue.value);
 
 const isInputFocused = computed(() => !!modelValue.value || isInputDirty.value);
+
+const onInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+
+  target.value = getMaskNormalizer(target.value, mask);
+
+  modelValue.value = target.value;
+};
 </script>
 
 <template>
@@ -38,6 +49,7 @@ const isInputFocused = computed(() => !!modelValue.value || isInputDirty.value);
       ref="input"
       v-model="modelValue"
       v-bind="{ ...attrs }"
+      @input="onInput"
       @focus="isInputDirty = true"
       @blur="isInputDirty = false"
     />
@@ -79,6 +91,7 @@ $border-error-color: #ff5a5a;
   }
 
   &__label {
+    @include text-small;
     position: absolute;
     left: 12px;
     top: 50%;
@@ -86,9 +99,6 @@ $border-error-color: #ff5a5a;
     transition: all 0.3s ease;
     opacity: 80%;
 
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 12px;
     text-transform: uppercase;
 
     &--active {

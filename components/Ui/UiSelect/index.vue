@@ -4,7 +4,7 @@ import type { SelectSize } from "./types/select-size.type";
 import ExpandIcon from "~/assets/icons/expand-icon.svg";
 import CollapseIcon from "~/assets/icons/collapse-icon.svg";
 
-const { defaultOption, options } = defineProps<{
+const { defaultOption, options, size, upperCase } = defineProps<{
   options: SelectInputOption[];
   size: SelectSize;
   defaultOption?: SelectInputOption;
@@ -24,6 +24,13 @@ const selectedLabel = computed(() => {
 
   return option ? option.label : defaultOption?.label;
 });
+
+const defaultOptionClasses = computed(() => [
+  "custom-select__button",
+  `custom-select__button--${size}`,
+  { "custom-select__button--upper-case": upperCase },
+  { "custom-select__button--active": isOpen.value },
+]);
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
@@ -69,12 +76,7 @@ onUnmounted(() => {
   >
     <button
       type="button"
-      :class="[
-        'custom-select__button',
-        `custom-select__button--${size}`,
-        { 'custom-select__button--upper-case': upperCase },
-        { 'custom-select__button--active': isOpen },
-      ]"
+      :class="[defaultOptionClasses]"
       @click="toggleDropdown"
       aria-haspopup="listbox"
       :aria-expanded="isOpen"
@@ -114,7 +116,7 @@ onUnmounted(() => {
         @click.stop="selectOption(option.value)"
         @keydown.enter.prevent="selectOption(option.value)"
         :aria-selected="selectedOption === option.value"
-        class="custom-select__option"
+        :class="['custom-select__option', `custom-select__option--${size}`]"
       >
         <template v-if="option.icon">
           <Component :is="option.icon" />
@@ -245,6 +247,12 @@ $dropdown-max-height: 150px;
     &:hover {
       background: $color-option-hover-background;
       color: $color-option-hover-text;
+    }
+
+    &--sm {
+      &:hover {
+        width: 70%;
+      }
     }
   }
 }

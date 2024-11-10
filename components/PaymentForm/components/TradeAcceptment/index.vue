@@ -102,16 +102,14 @@ const onTimerEnd = () => {
   }
 
   &__confirm-label {
-    font-size: 14px;
+    @include text-regular;
     font-weight: 500;
-    line-height: 16px;
     text-transform: uppercase;
   }
 
   &__timer-exception {
     @include font-roboto;
-    font-size: 14px;
-    font-weight: 400;
+    @include text-regular;
 
     opacity: 80%;
   }

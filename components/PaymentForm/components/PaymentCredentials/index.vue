@@ -27,9 +27,19 @@ const totalDetails = computed(() =>
 
 const invalidMessage = computed(() => getInvalidMessage(selectedPaymentMethod));
 
-const isCardNumberValid = computed(() => selectedPaymentMethod?.description ? Boolean(modelValue.value?.match(validationByPaymentMethodMap[selectedPaymentMethod?.description])) : false);
+const isCardNumberValid = computed(() =>
+  selectedPaymentMethod?.description
+    ? Boolean(
+        modelValue.value?.match(
+          validationByPaymentMethodMap[selectedPaymentMethod?.description]
+        )
+      )
+    : false
+);
 
-const isNextButtonDisabled = computed(() => !modelValue.value || !isCardNumberValid.value);
+const isNextButtonDisabled = computed(
+  () => !modelValue.value || !isCardNumberValid.value
+);
 </script>
 
 <template>
@@ -45,9 +55,14 @@ const isNextButtonDisabled = computed(() => !modelValue.value || !isCardNumberVa
 
     <SummaryDetails :details="totalDetails" />
 
-    <UiInput v-model="modelValue" :label="inputLabel" :isValid="isCardNumberValid">
+    <UiInput
+      v-model="modelValue"
+      :label="inputLabel"
+      :isValid="isCardNumberValid"
+      :mask="selectedPaymentMethod?.type"
+    >
       <template #errorMessage>
-        <UiAlert type='error'>{{ invalidMessage }}</UiAlert>
+        <UiAlert type="error">{{ invalidMessage }}</UiAlert>
       </template>
     </UiInput>
 
