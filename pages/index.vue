@@ -18,17 +18,17 @@ const sortModel = ref<SortDirection | null>(null);
 
 const isPaymentMethodPicked = ref(false);
 
-const filterSkins = (skins: Ref<Skin[]>, skin: Skin) =>
-  skins.value.filter((_skin) => _skin.id !== skin.id);
+const filterSkins = (skins: Skin[], skin: Skin) =>
+  skins.filter((_skin) => _skin.id !== skin.id);
 
 const handleSelectSkin = (skin: Skin) => {
-  if (!isPaymentMethodPicked.value) {
-    if (isSkinSelected(selectedSkins.value, skin)) {
-      selectedSkins.value = filterSkins(selectedSkins, skin);
-    } else {
-      selectedSkins.value = [...selectedSkins.value, skin];
-    }
-  }
+  if (isPaymentMethodPicked.value) return;
+
+  const isSelected = isSkinSelected(selectedSkins.value, skin);
+
+  selectedSkins.value = isSelected
+    ? filterSkins(selectedSkins.value, skin)
+    : [...selectedSkins.value, skin];
 };
 
 const onTransferCompleted = () => {
@@ -45,10 +45,8 @@ const onStepBackToPaymentMethod = () => {
 };
 
 watch(sortModel, () => {
-  if (sortModel.value === SortDirection.DESC && skins?.value?.data.length) {
-    skins.value.data = sortSkinsList(skins.value.data, SortDirection.DESC);
-  } else if (skins.value?.data.length) {
-    skins.value.data = sortSkinsList(skins.value.data, SortDirection.ASC);
+  if (skins?.value?.data.length) {
+    skins.value.data = sortSkinsList(skins.value.data, sortModel.value);
   }
 });
 </script>
