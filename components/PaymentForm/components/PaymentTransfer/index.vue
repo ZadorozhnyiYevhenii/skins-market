@@ -16,7 +16,7 @@ const isSuccess = computed(() => status === "success");
   <div class="payment-transfer">
     <div v-if="isSuccess" class="payment-transfer__container">
       <div class="payment-transfer__main-content">
-        <UiImage src="/success.png" height="148" width="148" />
+        <UiImage src="/success.png" alt="Payment transfer successful" height="148" width="148" />
 
         <div class="payment-transfer__info">
           <h2 class="payment-transfer__status">Transfer succeed!</h2>
@@ -34,7 +34,7 @@ const isSuccess = computed(() => status === "success");
 
     <div v-else class="payment-transfer__container">
       <div class="payment-transfer__main-content">
-        <UiImage src="/error.png" height="148" width="148" />
+        <UiImage src="/error.png" alt="Payment transfer failed" height="148" width="148" />
 
         <div class="payment-transfer__info">
           <h2 class="payment-transfer__status">Transfer error</h2>

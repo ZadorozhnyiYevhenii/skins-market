@@ -14,7 +14,13 @@ const isSelected = computed(() => isSkinSelected(selectedSkins, skin));
     <div class="skin-card__checkbox"><UiCheckbox v-model="isSelected" /></div>
 
     <div class="skin-card__image-wrapper">
-      <UiImage :src="skin.image" height="120" width="179" />
+      <UiImage
+        :src="skin.image"
+        :alt="`Skin image of ${skin.name}`"
+        height="120"
+        width="179"
+        loading="lazy"
+      />
     </div>
 
     <div class="skin-card__wrapper">

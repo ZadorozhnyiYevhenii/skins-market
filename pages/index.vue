@@ -2,6 +2,9 @@
 import { SortDirection } from "~/components/SortBar/enums/sort-direction.enum";
 import type { Skin } from "~/types/interfaces/skin.interface";
 import type { ServerResponse } from "~/types/types/server-response.type";
+import { indexPageMeta } from "~/consts/page-metas";
+
+useHead(indexPageMeta);
 
 definePageMeta({
   layout: "default",

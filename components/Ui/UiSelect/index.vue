@@ -178,7 +178,7 @@ $dropdown-max-height: 150px;
   }
 
   &__button {
-    font-size: $font-size-button;
+    @include text-regular;
     text-align: left;
     color: $color-text-primary;
 
@@ -211,7 +211,6 @@ $dropdown-max-height: 150px;
       border: none;
 
       padding: 8px 10px 8px 8px;
-      width: fit-content;
 
       gap: 4px;
     }
