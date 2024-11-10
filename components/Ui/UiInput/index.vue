@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { Mask } from "../UiSelect/types/mask.type";
 import { getMaskNormalizer } from "./helpers/getMaskNormlizer";
+import type { Mask } from "./types/mask.type";
 
 const { isValid, mask } = defineProps<{
   label?: string;
@@ -76,6 +75,7 @@ $border-error-color: #ff5a5a;
 
     border-radius: $primary-border-radius;
     border: 1px solid #ffffff1a;
+
     padding-inline: 12px;
     padding-block: 22px 10px;
 
@@ -83,7 +83,7 @@ $border-error-color: #ff5a5a;
     outline: none;
 
     color: $text-primary-color;
-    background: #00000033;
+    background: $background-tertiary-color;
 
     &--error {
       border-color: $border-error-color;

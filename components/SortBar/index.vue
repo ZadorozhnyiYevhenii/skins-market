@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { sortOptions } from "./consts/select-options";
+import type { SortDirection } from "./enums/sort-direction.enum";
 
-const sortModel = defineModel();
-
-const activeIcon = computed(
-  () => sortOptions.find((option) => option.value === sortModel.value)?.icon
-);
+const sortModel = defineModel<SortDirection | null>();
 
 const defaultOption = computed(() => sortOptions.at(0));
 </script>
@@ -17,11 +14,8 @@ const defaultOption = computed(() => sortOptions.at(0));
       :defaultOption
       :options="sortOptions"
       size="md"
-    >
-      <template #prependIcon>
-        <Component :is="activeIcon" />
-      </template>
-    </UiSelect>
+      iconPosition="prepend"
+    />
   </div>
 </template>
 

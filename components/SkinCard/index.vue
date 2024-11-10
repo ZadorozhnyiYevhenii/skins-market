@@ -6,7 +6,7 @@ const { selectedSkins, skin } = defineProps<{
   selectedSkins: Skin[];
 }>();
 
-const isSelected = computed(() => selectedSkins.some((selectedSkin) => selectedSkin.id === skin.id));
+const isSelected = computed(() => isSkinSelected(selectedSkins, skin));
 </script>
 
 <template>
@@ -69,7 +69,7 @@ $background-image: "/assets/images/skin-background.png";
   height: $card-height;
 
   background: $thirdly-background-color;
-  box-shadow: 0px 4px 8px 0px #00000033;
+  box-shadow: 0px 4px 8px 0px $background-tertiary-color;
 
   position: relative;
 

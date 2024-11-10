@@ -187,7 +187,7 @@ $payment-form-header-background: linear-gradient(
 
   &__payment-methods-item {
     cursor: pointer;
-    background: #00000033;
+    background: $background-tertiary-color;
     padding: 15px 20px;
     border: 1px solid #ffffff1a;
     border-radius: $primary-border-radius;

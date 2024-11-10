@@ -12,6 +12,7 @@
 </template>
 
 <style scoped lang="scss">
+$header-background: #234b9c;
 .header {
   &__nav {
     padding: 15px 32px 15px;
@@ -23,7 +24,7 @@
   &__container {
     position: relative;
 
-    background: #234b9c;
+    background: $header-background;
     height: 92px;
   }
 
@@ -42,10 +43,7 @@
 
   &__title {
     @include font-roboto;
-
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 24px;
+    @include text-large;
 
     padding: 40px 32px 28px;
   }

@@ -8,7 +8,7 @@ export const getTotalsSummary = (
   paymentMethod: PaymentWithoutPath | null,
   amount: number
 ): SummaryDetailsOptions[] => {
-  if (paymentMethod?.type === "cards") {
+  if (paymentMethod?.type === "cards" || paymentMethod?.type === "onlinePaymentSystems") {
     return [
       {
         title: "transaction comission",
@@ -24,7 +24,7 @@ export const getTotalsSummary = (
   return [
     {
       title: "transaction comission",
-      value: `${COMMISION}%`,
+      value: `${normalizePercentage(COMMISION)}%`,
     },
     {
       title: "You receive",
@@ -42,7 +42,7 @@ const getAmountWithComission = (amount: number) => {
 };
 
 const getCryptoAmount = (amount: number) => {
-  return amount - 3;
+  return amount - 10;
 };
 
 const normalizePercentage = (percentage: number) => percentage * 100;

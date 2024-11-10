@@ -1,1 +1,1 @@
-export type PaymentType = "cards" | "crypto";
+export type PaymentType = "cards" | "crypto" | "onlinePaymentSystems";

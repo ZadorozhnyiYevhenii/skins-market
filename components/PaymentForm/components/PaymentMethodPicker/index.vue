@@ -28,10 +28,6 @@ const defaultCountry = computed(() =>
   countryOptions.find((option) => option.value === modelValue.value)
 );
 
-const activeIcon = computed(
-  () => countryOptions.find((option) => option.value === modelValue.value)?.icon
-);
-
 const onPaymentMethodChoose = (payment: Payment) => {
   const { path, ...paymentData } = payment;
 
@@ -51,12 +47,9 @@ const onPaymentMethodNext = () => {
         :options="countryOptions"
         :defaultOption="defaultCountry"
         size="sm"
+        iconPosition="prepend"
         upperCase
-      >
-        <template #prependIcon>
-          <Component :is="activeIcon" />
-        </template>
-      </UiSelect>
+      />
 
       <ul class="payment-method-picker__list">
         <li
@@ -116,7 +109,7 @@ $item-picked-border: 1px solid #2c64f1;
 
   &__item {
     cursor: pointer;
-    background: #00000033;
+    background: $background-tertiary-color;
     padding: 15px 20px;
     border: 1px solid #ffffff1a;
     border-radius: $primary-border-radius;

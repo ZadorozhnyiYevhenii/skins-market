@@ -83,7 +83,7 @@ $secondary-color: $text-primary-color;
 .button {
   color: $text-primary-color;
   border-radius: $primary-border-radius;
-  box-shadow: 0px 4px 4px 0px #00000033;
+  box-shadow: 0px 4px 4px 0px $background-tertiary-color;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;

@@ -2,7 +2,6 @@
 import { SortDirection } from "~/components/SortBar/enums/sort-direction.enum";
 import type { Skin } from "~/types/interfaces/skin.interface";
 import type { ServerResponse } from "~/types/types/server-response.type";
-import { useStorage } from "@vueuse/core";
 
 definePageMeta({
   layout: "default",
@@ -10,7 +9,7 @@ definePageMeta({
 
 const { data: skins } = useFetch<ServerResponse<Skin[]>>("/api/skins");
 
-const selectedSkins = useStorage<Skin[]>("selectedSkins", []);
+const selectedSkins = ref<Skin[]>([]);
 
 const sortModel = ref<SortDirection | null>(null);
 
@@ -21,7 +20,7 @@ const filterSkins = (skins: Ref<Skin[]>, skin: Skin) =>
 
 const handleSelectSkin = (skin: Skin) => {
   if (!isPaymentMethodPicked.value) {
-    if (selectedSkins.value.some((selectedSkin) => selectedSkin.id === skin.id)) {
+    if (isSkinSelected(selectedSkins.value, skin)) {
       selectedSkins.value = filterSkins(selectedSkins, skin);
     } else {
       selectedSkins.value = [...selectedSkins.value, skin];

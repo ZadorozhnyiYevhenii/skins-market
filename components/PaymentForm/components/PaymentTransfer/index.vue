@@ -77,9 +77,7 @@ const isSuccess = computed(() => status === "success");
 
   &__status {
     @include font-roboto;
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 24px;
+    @include text-large;
     text-align: center;
   }
 

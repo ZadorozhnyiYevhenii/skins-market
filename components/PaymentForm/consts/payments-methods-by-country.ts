@@ -8,12 +8,12 @@ const VISA_MASTERCARD: Payment = {
   description: PaymentMethodEnum.Card,
 };
 const PAYPAL: Payment = {
-  type: "cards",
+  type: "onlinePaymentSystems",
   path: "/allowed_payments_methods/paypal.png",
   description: PaymentMethodEnum.PayPal,
 };
 const PAYONEER: Payment = {
-  type: "cards",
+  type: "onlinePaymentSystems",
   path: "/allowed_payments_methods/payoneer.png",
   description: PaymentMethodEnum.Payoneer,
 };

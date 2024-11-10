@@ -3,12 +3,14 @@ import type { SelectInputOption } from "./types/options.interface";
 import type { SelectSize } from "./types/select-size.type";
 import ExpandIcon from "~/assets/icons/expand-icon.svg";
 import CollapseIcon from "~/assets/icons/collapse-icon.svg";
+import type { IconPosition } from "./types/icon.position.type";
 
 const { defaultOption, options, size, upperCase } = defineProps<{
   options: SelectInputOption[];
   size: SelectSize;
   defaultOption?: SelectInputOption;
   upperCase?: boolean;
+  iconPosition?: IconPosition;
 }>();
 
 const attrs = useAttrs();
@@ -31,6 +33,20 @@ const defaultOptionClasses = computed(() => [
   { "custom-select__button--upper-case": upperCase },
   { "custom-select__button--active": isOpen.value },
 ]);
+
+const optionsClasses = computed(() => [
+  "custom-select__options",
+  `custom-select__options--${size}`,
+]);
+
+const optionClasses = computed(() => [
+  "custom-select__option",
+  `custom-select__option--${size}`,
+]);
+
+const activeIcon = computed(
+  () => options.find((option) => option.value === selectedOption.value)?.icon
+);
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
@@ -80,20 +96,24 @@ onUnmounted(() => {
       @click="toggleDropdown"
       aria-haspopup="listbox"
       :aria-expanded="isOpen"
-      :aria-controls="'custom-select-list'"
-      :aria-labelledby="'custom-select-label'"
+      aria-controls="custom-select-list"
+      aria-labelledby="custom-select-label"
       v-bind="{ ...attrs }"
     >
       <span class="custom-select__content">
-        <template v-if="modelValue">
-          <slot name="prependIcon" />
-        </template>
+        <template v-if="iconPosition === 'prepend'">
+          <Component v-if="selectedOption" :is="activeIcon" />
 
-        <Component v-else :is="defaultOption?.icon" />
+          <Component v-else :is="defaultOption?.icon" />
+        </template>
 
         {{ selectedLabel }}
 
-        <slot name="appendIcon" />
+        <template v-if="iconPosition === 'append'">
+          <Component v-if="selectedOption" :is="activeIcon" />
+
+          <Component v-else :is="defaultOption?.icon" />
+        </template>
       </span>
 
       <ExpandIcon v-if="isOpen" alt="Expand icon" />
@@ -105,7 +125,7 @@ onUnmounted(() => {
       v-if="isOpen"
       role="listbox"
       id="custom-select-list"
-      :class="['custom-select__options', `custom-select__options--${size}`]"
+      :class="optionsClasses"
       aria-labelledby="custom-select-label"
     >
       <li
@@ -116,7 +136,7 @@ onUnmounted(() => {
         @click.stop="selectOption(option.value)"
         @keydown.enter.prevent="selectOption(option.value)"
         :aria-selected="selectedOption === option.value"
-        :class="['custom-select__option', `custom-select__option--${size}`]"
+        :class="optionClasses"
       >
         <template v-if="option.icon">
           <Component :is="option.icon" />
