@@ -100,6 +100,8 @@ watch(sortModel, () => {
 
     transition: opacity 0.2s;
 
+    width: 100%;
+
     &--blur {
       opacity: 0.4;
       pointer-events: none;

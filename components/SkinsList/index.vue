@@ -21,9 +21,10 @@ const emits = defineEmits<{
 
 <style scoped lang="scss">
 .skins-list {
-  display: flex;
-  flex-wrap: wrap;
-
+  width: 100%;
+  display: grid;
   gap: 4px;
+
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 </style>

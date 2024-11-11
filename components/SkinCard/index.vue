@@ -75,9 +75,11 @@ $background-image: "/assets/images/skin-background.png";
   height: $card-height;
 
   background: $color-bg-tertiary;
-  box-shadow: 0px 4px 8px 0px $color-bg-tertiary;
+  box-shadow: 0px 4px 8px 0px #00000033;
 
   position: relative;
+
+  width: 100%;
 
   &:hover {
     background: $card-hover-background-color;
